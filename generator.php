@@ -79,10 +79,6 @@ function answerMessages($token, $commandsToAnswer, $unansweredMessages)
             sendText($token, $chatId, $messageId, 'Please, enter a text right after the command (in the same message)');
             continue;
         }
-        if (preg_match('/[А-Яа-яЁё]/u', $messageToGenerate)) {
-            sendText($token, $chatId, $messageId, 'Sorry, the font does not support cyrillic characters');
-            continue;
-        }
 
         sendImage($token, $chatId, $messageId, $messageToGenerate, str_contains($messageText, 'sticker'));
     }
@@ -124,8 +120,9 @@ function generateImage($replyId, $text, $isSticker)
 {
     $path = __DIR__ . '/temp/' . $replyId . '.webp';
 
-    putenv('GDFONTPATH=' . realpath(__DIR__));
-    $font = 'SHAXIZOR.ttf';
+    putenv('GDFONTPATH=' . realpath(__DIR__ . '/fonts'));
+    $hasCyrillic = preg_match('/[А-Яа-яЁё]/u', $text);
+    $font = $hasCyrillic ? 'Nevduplenysh-Regular.otf' : 'SHAXIZOR.ttf';
 
     $lines = array_map('trim', explode("\\", $text));
     $longestLine = max(array_map('strlen', $lines));
