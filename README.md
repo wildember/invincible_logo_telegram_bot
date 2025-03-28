@@ -1,7 +1,7 @@
-This script pulls last messages using Telegram API getUpdates endpoint,
+This script pulls last messages using Telegram API `getUpdates` endpoint,
 then filters out the already answered messages and answers the commands with an image or a sticker generated from user input.
 
-Implied to be run by cron job.
+Implied to be run by cron job and needs a valid bot token inside the `token.txt`.
 
 Uses [Nevduplenysh](https://online-fonts.com/fonts/nevduplenysh) font for cyrillic texts and [Shadow of Xizor](https://online-fonts.com/fonts/shadow-xizor) for others.
 
