@@ -79,8 +79,8 @@ function answerMessages($token, $commandsToAnswer, $unansweredMessages)
             sendText($token, $chatId, $messageId, 'Please, enter a text right after the command (in the same message)');
             continue;
         }
-        if (!preg_match('/^[ a-zA-Z0-9!?\\\s]+$/', $messageToGenerate)) {
-            sendText($token, $chatId, $messageId, 'Please use only latin letters and numbers');
+        if (preg_match('/[А-Яа-яЁё]/u', $messageToGenerate)) {
+            sendText($token, $chatId, $messageId, 'Sorry, the font does not support cyrillic characters');
             continue;
         }
 
