@@ -69,7 +69,7 @@ function answerMessages($token, $commandsToAnswer, $unansweredMessages)
         $chatId = $unansweredMessage['message']['chat']['id'];
         $messageId = $unansweredMessage['message']['message_id'];
         $messageText = $unansweredMessage['message']['text'];
-        $messageToGenerate = trim(str_replace($commandsToAnswer,'', $chatId ?? ''));
+        $messageToGenerate = trim(str_replace($commandsToAnswer,'', $messageText ?? ''));
 
         if (str_contains($messageText, '/help')) {
             sendText($token, $chatId, $messageId, getHelp());
