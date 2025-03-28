@@ -97,7 +97,7 @@ function getHelp()
 `/generatesticker Hello world` will return a sticker with the text "Hello world"
 `/generate Hello\world` will return an image (or a sticker) with multi-line text
 `/help` will return this message
-Accepted characters: a-z, A-Z, 0-9, space, !, ?, \
+Accepted characters: latin, numbers, spaces, punctuation and backslash (\)
     ';
 }
 
