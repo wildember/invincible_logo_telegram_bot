@@ -103,7 +103,7 @@ Accepted characters: a-z, A-Z, 0-9, space, !, ?, \
 
 function sendImage($token, $chatId, $replyId, $message, $isSticker)
 {
-    $filename = generateImage($replyId, $message);
+    $filename = generateImage($replyId, $message, $isSticker);
     $file = new CURLFile($filename, 'image/webp', 'image.webp');
     $params = [
         'photo' => $file,
@@ -120,7 +120,7 @@ function sendImage($token, $chatId, $replyId, $message, $isSticker)
     unlink($filename);
 }
 
-function generateImage($replyId, $text)
+function generateImage($replyId, $text, $isSticker)
 {
     $path = __DIR__ . '/temp/' . $replyId . '.webp';
 
@@ -130,9 +130,10 @@ function generateImage($replyId, $text)
     $lines = array_map('trim', explode("\\", $text));
     $longestLine = max(array_map('strlen', $lines));
 
-    $imageWidth = $imageHeight = 512;
-    $maxTextWidth = 480;
-    $maxTextHeight = 500;
+    $imageHeight = 512;
+    $imageWidth = $isSticker ? $imageHeight : floor(($imageHeight/9)*16);
+    $maxTextWidth = floor($imageWidth * 0.95);
+    $maxTextHeight = floor($imageHeight * 0.95);
     $lineGap = 8;
 
     header('Content-Type: image/png');
